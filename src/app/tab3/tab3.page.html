@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons>
+     <ion-menu-button></ion-menu-button>
+      <ion-title>
+        My Cart ({{ cart.count || 0 }})
+      </ion-title>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="cart.productData.length > 0; else showOther">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Tab 3</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <app-cart-view [prod] = "cart.productData"></app-cart-view>
+  </ng-container>
+
+  <ng-template #showOther>
+    <ion-img src="/assets/empty-cart.png"></ion-img>
+    <div class="d-flex ion-justify-content-center"></div>
+    <ion-button class="ion-text-center" routerLink="/tabs/tab1">Go To Shop</ion-button>
+  </ng-template>
+
+
+</ion-content>
+
+  <ion-footer>
+    <ion-toolbar *ngIf="cart.productData.length > 0">
+      <ion-label slot="start">
+        <ion-text class="totalPrice">{{total | currency: "LEI" }}
+          <ion-note></ion-note></ion-text>
+      </ion-label>
+      <ion-buttons>
+        <ion-button
+          class="ion-activatable ripple-parent"
+          color="warning"
+          expand="full"
+          size="large"
+          routerLink="/checkout"
+
+        >
+          Go To Checkout
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-button>
+
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+
